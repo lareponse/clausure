@@ -14,7 +14,9 @@ Generates SQL with named placeholders (`:name` format) compatible with PDO, or c
 
 **Performance:**
 - **Memory efficient**: Closures vs object instances, stateless design
-- **Execution overhead**: Function calls vs method chains (faster), vs raw SQL (slower)
+- **Execution overhead**:
+    - vs OOP builders: Lower method call overhead
+    - vs raw SQL: Additional function call cost
 - **Lazy evaluation**: SQL generated only when invoked, enabling closure reuse
 - **No built-in optimization**: Pure generation without query caching
 

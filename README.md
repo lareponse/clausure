@@ -94,7 +94,7 @@ $order = clause(CLAUSE_ORDER_BY);
     $order(['created_at' => 'DESC'])
 );
 // → SELECT with nested AND/OR conditions and bindings
-
+```
 
 ### Advanced Features
 

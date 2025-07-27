@@ -130,7 +130,7 @@ clause(CLAUSE_SELECT)(['id', 'COUNT(*)', 'name', 'username' => 'email']);
 // → "SELECT id, COUNT(*), name, email AS `username`"
 
 // OR conditions
-clause(CLAUSE_WHERE | OP_OR, '=')(['role' => 'admin', 'role' => 'moderator']);
+clause(CLAUSE_WHERE | OP_OR, '=')(['role' => 'admin', 'access' => 'admin']]);
 // → "WHERE `role` = :role OR `role` = :role"
 
 // VALUES clause

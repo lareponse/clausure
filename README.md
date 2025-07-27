@@ -6,13 +6,13 @@ Functional composition for SQL building through reusable closure functions that 
 
 Generates SQL with named placeholders (`:name` format) compatible with PDO, or can be adapted for use with mysqli and other database extensions.
 
-**Key Advantages:**
+## Key Advantages
 - **Compositional**: Build complex queries from simple, reusable functions
 - **Polymorphic**: Handles raw SQL strings, arrays, and nested closures  
 - **Safe**: Automatic parameter binding prevents SQL injection
 - **Flexible**: Bitwise constants allow precise behavior control
 
-**Performance:**
+## Performance
 - **Memory efficient**: Closures vs object instances, stateless design
 - **Execution overhead**:
     - vs OOP builders: Lower method call overhead
@@ -20,6 +20,17 @@ Generates SQL with named placeholders (`:name` format) compatible with PDO, or c
 - **Lazy evaluation**: SQL generated only when invoked, enabling closure reuse
 - **No built-in optimization**: Pure generation without query caching
 
+## Comparison to Common Approaches
+
+| Aspect | Raw SQL | Clausure | Laravel/Eloquent | Doctrine DBAL |
+|--------|---------|----------|------------------|---------------|
+| **Paradigm** | Declarative | Functional | OOP Fluent | OOP Fluent |
+| **Memory** | Lowest | Low | Medium | Medium |
+| **Reusability** | Low | High | Medium | Medium |
+| **SQL Control** | Highest | High | Medium | High |
+| **Learning Curve** | Lowest | Medium | Low | Medium |
+
+---
 
 ## Requirements
 - PHP 7.4+
@@ -29,15 +40,21 @@ Generates SQL with named placeholders (`:name` format) compatible with PDO, or c
 composer require lareponse/clausure
 ```
 
-### Comparison to Common Approaches
+### Core Functions
 
-| Aspect | Raw SQL | Clausure | Laravel/Eloquent | Doctrine DBAL |
-|--------|---------|----------|------------------|---------------|
-| **Paradigm** | Declarative | Functional | OOP Fluent | OOP Fluent |
-| **Memory** | Lowest | Low | Medium | Medium |
-| **Reusability** | Low | High | Medium | Medium |
-| **SQL Control** | Highest | High | Medium | High |
-| **Learning Curve** | Lowest | Medium | Low | Medium |
+**`clause(int $type, string $glue = ''): callable`**
+
+Creates a closure that generates SQL clauses.
+
+- `$type`: Bitwise combination of clause constants
+- `$glue`: Operator for associative arrays (e.g., '=', '>', 'LIKE')
+
+**`statement(...$args): array`**
+
+Combines multiple clauses into a complete SQL statement.
+
+Returns `[$sql, $bindings]` tuple.
+
 
 
 ## Usage
@@ -159,22 +176,25 @@ clause(CLAUSE_VALUES)(['name' => 'John', 'email' => 'john@example.com']);
 | `OP_OR` | OR grouping | `(condition OR condition)` |
 | `OP_IN` | IN operator | `IN (:val1, :val2)` |
 
-### Core Functions
-
-**`clause(int $type, string $glue = ''): callable`**
-
-Creates a closure that generates SQL clauses.
-
-- `$type`: Bitwise combination of clause constants
-- `$glue`: Operator for associative arrays (e.g., '=', '>', 'LIKE')
-
-**`statement(...$args): array`**
-
-Combines multiple clauses into a complete SQL statement.
-
-Returns `[$sql, $bindings]` tuple.
 
 
+## Philosophy
+
+Against OOP dogma: While frameworks mandate heavy object hierarchies (ActiveRecord, DataMapper patterns), clausure uses functional composition with closures.
+
+Against abstraction addiction: Frameworks hide SQL behind layers of "convenient" APIs. Clausure stays close to SQL while adding composability.
+
+Against method chaining theology: Instead of `$query->where()->join()->orderBy()` chains, clausure uses direct function composition that mirrors SQL structure.
+
+Against stateful complexity: Frameworks maintain query builder state across method calls. Clausure uses stateless closures that generate SQL on demand.
+
+Against monolithic thinking: Frameworks try to solve everything with one approach. Clausure does one thing precisely - SQL generation with binding.
+
+Against magic: Frameworks rely on reflection, magic methods, and hidden behaviors. Clausure is explicit - you see exactly what SQL gets generated.
+
+The answer: you don't need framework complexity to get safety and composability. Functional programming with closures provides a lighter, more direct path that respects both SQL and PHP's strengths without conventional ORM overhead.
+
+PHP thinking functionally rather than forcing everything into objects.
 
 ## License
 

@@ -154,7 +154,7 @@ Returns `[$sql, $bindings]` tuple.
 
 | Aspect | Raw SQL | Clausure | Laravel/Eloquent | Doctrine DBAL |
 |--------|---------|----------|------------------|---------------|
-| **Paradigm** | Procedural | Functional | OOP Fluent | OOP Fluent |
+| **Paradigm** | Declarative | Functional | OOP Fluent | OOP Fluent |
 | **Memory** | Lowest | Low | Medium | Medium |
 | **Reusability** | Low | High | Medium | Medium |
 | **SQL Control** | Highest | High | Medium | High |

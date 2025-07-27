@@ -6,6 +6,19 @@ Functional composition for SQL building through reusable closure functions that 
 
 Generates SQL with named placeholders (`:name` format) compatible with PDO, or can be adapted for use with mysqli and other database extensions.
 
+**Key Advantages:**
+- **Compositional**: Build complex queries from simple, reusable functions
+- **Polymorphic**: Handles raw SQL strings, arrays, and nested closures  
+- **Safe**: Automatic parameter binding prevents SQL injection
+- **Flexible**: Bitwise constants allow precise behavior control
+
+**Performance:**
+- **Memory efficient**: Closures vs object instances, stateless design
+- **Execution overhead**: Function calls vs method chains (faster), vs raw SQL (slower)
+- **Lazy evaluation**: SQL generated only when invoked, enabling closure reuse
+- **No built-in optimization**: Pure generation without query caching
+
+
 ## Requirements
 - PHP 7.4+
 
@@ -13,6 +26,17 @@ Generates SQL with named placeholders (`:name` format) compatible with PDO, or c
 ```bash
 composer require lareponse/clausure
 ```
+
+### Comparison to Common Approaches
+
+| Aspect | Raw SQL | Clausure | Laravel/Eloquent | Doctrine DBAL |
+|--------|---------|----------|------------------|---------------|
+| **Paradigm** | Declarative | Functional | OOP Fluent | OOP Fluent |
+| **Memory** | Lowest | Low | Medium | Medium |
+| **Reusability** | Low | High | Medium | Medium |
+| **SQL Control** | Highest | High | Medium | High |
+| **Learning Curve** | Lowest | Medium | Low | Medium |
+
 
 ## Usage
 
@@ -147,33 +171,6 @@ Creates a closure that generates SQL clauses.
 Combines multiple clauses into a complete SQL statement.
 
 Returns `[$sql, $bindings]` tuple.
-
-## Design Philosophy
-
-### Comparison to Common Approaches
-
-| Aspect | Raw SQL | Clausure | Laravel/Eloquent | Doctrine DBAL |
-|--------|---------|----------|------------------|---------------|
-| **Paradigm** | Declarative | Functional | OOP Fluent | OOP Fluent |
-| **Memory** | Lowest | Low | Medium | Medium |
-| **Reusability** | Low | High | Medium | Medium |
-| **SQL Control** | Highest | High | Medium | High |
-| **Learning Curve** | Lowest | Medium | Low | Medium |
-
-### Key Advantages
-
-- **Compositional**: Build complex queries from simple, reusable functions
-- **Polymorphic**: Handles raw SQL strings, arrays, and nested closures
-- **Safe**: Automatic parameter binding prevents SQL injection
-- **Minimal**: Close to SQL with minimal abstraction overhead
-- **Flexible**: Bitwise constants allow precise behavior control
-
-### Performance
-
-- **No object instantiation overhead**
-- **Lazy evaluation** - SQL generated only when called
-- **Memory efficient** - closures maintain minimal state
-- **Reusable** - same closure generates different SQL variants
 
 
 
